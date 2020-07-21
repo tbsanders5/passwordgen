@@ -19,8 +19,15 @@ console.log(alphUp);
 function generatePassword(){
 
   console.log("Running Generate Password")
+  let innerPass = '';
+  
 
   let lengthPass = parseInt(prompt('How many characters would you like in your password? Must be between 8 and 128 characters.'));
+    if (!lengthPass) {
+      alert('Value is needed! Start over!')
+      return(lengthPass);
+    }
+
     while (lengthPass < 8 || lengthPass > 128) {
       lengthPass = prompt('Password must be between 8 and 128, choose again!');
     } 
@@ -39,7 +46,7 @@ function generatePassword(){
       if (confirmNumbers) {
         userChoice.push(numbers);
       }
-    } if (confirmUpper) {
+     if (confirmUpper) {
       userChoice.push(alphUp);
     }
 
@@ -49,21 +56,41 @@ function generatePassword(){
       if(confirmSpec) {
         userChoice.push(specChar);
       }
+      
       let userCombo = userChoice.flat()
+      
+      // 4 booleans
+      // hasnumber,haslower etc
+      let needToAddNumber = confirmNumbers;
+      let needToAddLower = confirmLower;
+      let needToAddSpecChar = confirmSpec;
+      let needToAddUpper = confirmUpper;
 
-      for (var i=0; i < lengthPass; i++) {
-        password = password + 
-        userCombo[Math.floor(Math.random() * userCombo.length)]
-      }
-        return password;
-
+      for (var i=0; i < lengthPass; i++) { 
+        if (needToAddNumber) { innerPass += numbers[Math.floor(Math.random() * numbers.length)] 
+        needToAddNumber = false;
+      } else if (needToAddLower) { innerPass += alphLow[Math.floor(Math.random() * alphLow.length)] 
+        needToAddLower = false;     
+      } else if (needToAddSpecChar) { innerPass += specChar[Math.floor(Math.random() * specChar.length)]
+        needToAddSpecChar = false;
+      } else if (needToAddUpper) { innerPass += alphUp[Math.floor(Math.random() * alphUp.length)]
+        needToAddUpper = false;
+      } else {
+        innerPass += userCombo[Math.floor(Math.random() * userCombo.length)]
+        console.log(innerPass);
+      } 
+    }
+        {
+        return innerPass;
+            } 
     } 
-      console.log(password);
+  }
 
     function writePassword() {
 
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
+  
 
   passwordText.value = password;
 
