@@ -45,7 +45,7 @@ function generatePassword(){
 
     if (!confirmNumbers && !confirmUpper && !confirmLower && !confirmSpec) {
       userChoice = alert('Password needs a certain criteria, please start again!')
-      return [lengthPass];
+      return (lengthPass);
     } else {
       if (confirmNumbers) {
         userChoice.push(numbers);
