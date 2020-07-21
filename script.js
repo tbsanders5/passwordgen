@@ -29,7 +29,11 @@ function generatePassword(){
     }
 
     while (lengthPass < 8 || lengthPass > 128) {
-      lengthPass = prompt('Password must be between 8 and 128, choose again!');
+      lengthPass = parseInt(prompt('Password must be between 8 and 128, choose again!'));
+    if (!lengthPass) {
+      alert('Value is needed! Start over!')
+      return(lengthPass);
+    }
     } 
 
     const confirmNumbers = confirm('Will this password contain numbers?');
@@ -77,14 +81,26 @@ function generatePassword(){
         needToAddUpper = false;
       } else {
         innerPass += userCombo[Math.floor(Math.random() * userCombo.length)]
-        console.log(innerPass);
+        // console.log(innerPass);
       } 
-    }
-        {
-        return innerPass;
+      
+    } 
+        var finalPass = '';
+        var innerPassLength = innerPass.length;
+
+          for (var i=0; i < innerPassLength; i++) {
+          var randomPos = Math.floor(Math.random() * innerPass.length)
+          console.log(randomPos);
+          finalPass += innerPass.charAt(randomPos);
+          innerPass = innerPass.slice(0, randomPos) + innerPass.slice(randomPos + 1);
+          console.log(innerPass);
+        } 
+          
+      }
+        { 
+        return finalPass;
             } 
     } 
-  }
 
     function writePassword() {
 
